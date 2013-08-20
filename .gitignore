@@ -1,0 +1,10 @@
+cloudcv/node_modules/cv/build/Makefile
+cloudcv/node_modules/cv/build/Release/.deps/Release/cv.node.d
+cloudcv/node_modules/cv/build/Release/.deps/Release/obj.target/cv/main.o.d
+cloudcv/node_modules/cv/build/Release/cv.node
+cloudcv/node_modules/cv/build/Release/linker.lock
+cloudcv/node_modules/cv/build/Release/obj.target/cv/main.o
+cloudcv/node_modules/cv/build/binding.Makefile
+cloudcv/node_modules/cv/build/config.gypi
+cloudcv/node_modules/cv/build/cv.target.mk
+cloudcv/node_modules/cv/build/gyp-mac-tool
