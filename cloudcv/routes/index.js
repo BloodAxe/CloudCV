@@ -1,9 +1,8 @@
-
 /*
  * GET home page.
  */
 
-var cv = require('cv');
+var cv = require('../node_modules/cv/cv');
 
 exports.index = function(req, res)
 {

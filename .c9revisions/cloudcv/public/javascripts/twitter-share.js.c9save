@@ -1,0 +1,2 @@
+{"ts":1377627007217,"silentsave":true,"restoring":false,"patch":[[]],"length":0}
+{"contributors":[],"silentsave":false,"ts":1377627015087,"patch":[[{"diffs":[[1,"!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');\n"]],"start1":0,"start2":0,"length1":0,"length2":279}]],"length":279,"saved":false}

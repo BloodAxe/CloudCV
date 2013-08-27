@@ -4,10 +4,13 @@
 
 using namespace v8;
 
+extern "C"
+{
+    
 // This function returns a JavaScript number that is either 0 or 1.
 Handle<Value> buildInformation(const Arguments& args)
 {
-    // At the top of every function that uses anything about v8, include a
+    // At thep top of every function that uses anything about v8, include a
     // definition like this. It ensures that any v8 handles you create in that
     // function are properly cleaned up. If you see memory rising in your
     // application, chances are that a scope isn't properly cleaned up.
@@ -31,3 +34,4 @@ void RegisterModule(Handle<Object> target)
 }
 
 NODE_MODULE(cv, RegisterModule);
+}

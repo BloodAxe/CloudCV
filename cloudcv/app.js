@@ -3,9 +3,10 @@
  * Module dependencies.
  */
 
+var cv = require('./node_modules/cv/cv');
+
 var express = require('express');
 var routes = require('./routes');
-var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
 var fs = require('fs');
@@ -29,24 +30,6 @@ if ('development' == app.get('env'))
 	app.use(express.errorHandler());
 }
 
+
 app.get('/', routes.index);
-app.get('/users', user.list);
-
-app.post('/api/photos', function(req, res)
-{ 
-    fs.readFile(req.files.userPhoto.path, 
-    	function(err, data)
-    	{
-    		if (err)
-    			throw err;
-
-    		cv.imdecode(data, function(image)
-			{
-
-			});
-    	});
-});
-
-http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
-});
+app.listen(process.env.PORT, process.env.IP);

@@ -1,0 +1,5 @@
+{"ts":1377374089967,"silentsave":true,"restoring":false,"patch":[[{"diffs":[[1,"\n/*\n * GET home page.\n */\n\nvar cv = require('cv');\n\nexports.index = function(req, res)\n{\n  res.render('index', \n  \t{ title: 'Express', \n  \t  opencv_info: cv.buildInformation() \n  \t});\n};"]],"start1":0,"start2":0,"length1":0,"length2":186}]],"length":186}
+{"contributors":[],"silentsave":false,"ts":1377375032484,"patch":[[{"diffs":[[1,"c"],[0,"\n/*\n * G"]],"start1":0,"start2":0,"length1":8,"length2":9}]],"length":187,"saved":false}
+{"ts":1377375034515,"patch":[[{"diffs":[[-1,"c\n"],[0,"/*\n "]],"start1":0,"start2":0,"length1":6,"length2":4}]],"length":185,"saved":false}
+{"ts":1377375205554,"patch":[[{"diffs":[[0,"uire('cv"],[1,"/Build/Release"],[0,"');\n\nexp"]],"start1":38,"start2":38,"length1":16,"length2":30}]],"length":199,"saved":false}
+{"ts":1377375256805,"patch":[[{"diffs":[[0,"('cv"],[-1,"/Build/Release"],[0,"');\n"]],"start1":42,"start2":42,"length1":22,"length2":8}]],"length":185,"saved":false}
