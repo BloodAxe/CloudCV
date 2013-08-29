@@ -2,7 +2,7 @@
  * GET home page.
  */
 
-var cv = require('../node_modules/cloudcv/cloudcv');
+var cv = require('../node_modules/cloudcv/build/Release/cloudcv');
 
 exports.index = function(req, res)
 {

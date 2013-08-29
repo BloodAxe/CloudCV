@@ -11,11 +11,11 @@
   {
     "express": "3.3.5",
     "jade": "*",
-    "cloudcv": "https://github.com/BloodAxe/CloudCVBackend.git"
+    "cloudcv": "git://github.com/BloodAxe/CloudCVBackend.git"
   },
   
     "repository": {
         "type": "git",
-        "url": "git://github.com/BloodAxe/CloudCVBackend.git"
+        "url": "git://github.com/BloodAxe/CloudCV.git"
     }
 }
