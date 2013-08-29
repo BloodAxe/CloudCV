@@ -12,5 +12,10 @@
     "express": "3.3.5",
     "jade": "*",
     "cloudcv": "https://github.com/BloodAxe/CloudCVBackend.git"
-  }
+  },
+  
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/BloodAxe/CloudCV.git"
+    }
 }
