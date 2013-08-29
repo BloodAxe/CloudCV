@@ -8,6 +8,6 @@ exports.index = function(req, res)
 {
   res.render('index', 
   	{ title: 'Express', 
-  	  opencv_info: cv.buildInformation() 
+  	  opencv_info: cv.buildInformation()
   	});
 };
