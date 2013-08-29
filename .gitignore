@@ -8,3 +8,4 @@ cloudcv/node_modules/cv/build/binding.Makefile
 cloudcv/node_modules/cv/build/config.gypi
 cloudcv/node_modules/cv/build/cv.target.mk
 cloudcv/node_modules/cv/build/gyp-mac-tool
+.c9revisions/

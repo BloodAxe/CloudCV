@@ -1,0 +1,16 @@
+{
+  "name": "CloudCV",
+  "version": "0.0.1",
+  "private": false,
+  "scripts":
+  {
+    "start": "node app.js"
+  },
+  
+  "dependencies":
+  {
+    "express": "3.3.5",
+    "jade": "*",
+    "cloudcv": "https://github.com/BloodAxe/CloudCVBackend.git"
+  }
+}
