@@ -16,6 +16,6 @@
   
     "repository": {
         "type": "git",
-        "url": "https://github.com/BloodAxe/CloudCV.git"
+        "url": "git://github.com/BloodAxe/CloudCVBackend.git"
     }
 }
