@@ -1,4 +1,3 @@
-
 /**
  * Module dependencies.
  */
@@ -12,7 +11,7 @@ var fs = require('fs');
 var app = express();
 
 // all environments
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 80);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 app.set('view options', {pretty: true});
@@ -31,4 +30,4 @@ if ('development' == app.get('env'))
 
 
 app.get('/', routes.index);
-app.listen(process.env.PORT || 3000, process.env.IP || 'localhost');
+app.listen(process.env.PORT || 80, process.env.IP || 'localhost');
