@@ -1,15 +1,21 @@
-.container
-    .footer
-        hr(style='margin: 30px 0 10px 0;')
-        p &copy;&nbsp;
-            a(name='about') Ievgen Khvedchenia
-            &nbsp;2013
-            a(href="https://twitter.com/share",class="twitter-share-button",data-text="Check this demo cloud image processing using @OpenCV and Node.js",data-via="cvtalks",data-size="large",data-hashtags="OpenCV") Tweet
+block footer
+
+nav.navbar.navbar-inverse.navbar-fixed-bottom
+    div.pull-left
+        p.navbar-text
+            | &copy;&nbsp;
+            a(href='about') Ievgen Khvedchenia
+            | &nbsp;2013
+            a(href="https://twitter.com/cvtalks") @cvtalks
+            | &nbsp;
             a(href="http://computer-vision-talks.com") Computer Vision Talks
-    
+    div.pull-right
+        p.navbar-text
+            | Hosted by&nbsp;
+            a(href="https://www.digitalocean.com/?refcode=b93faa829f80")
+                img(src="/images/digital-ocean-logo-white.png")
+
 script(src="http://code.jquery.com/jquery-2.0.3.min.js")
 script(src="/bootstrap/js/bootstrap.js")
 script(src="/javascripts/ga.js")
 script(src="/javascripts/twitter-share.js")
-
-block footer
