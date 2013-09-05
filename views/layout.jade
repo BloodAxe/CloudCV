@@ -1,16 +1,19 @@
 doctype 5
 html(lang="en")
-  head
-    title= title
-    meta(name="viewport",content="width=device-width, initial-scale=1.0")
-    link(rel='stylesheet', href='/bootstrap/css/bootstrap.css')
-    link(rel='stylesheet', href='/stylesheets/github-forkme.css')
-    link(rel='stylesheet', href='/stylesheets/template.css')
-    link(rel='stylesheet', href='http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css')
-    link(rel='stylesheet', href='https://raw.github.com/noizwaves/bootstrap-social-buttons/master/social-buttons-3.css')
+    block variables
+    head
+        - var title = title || "CloudCV - Cloud image processing platform"
+        title #{title}
+        
+        meta(name="viewport",content="width=device-width, initial-scale=1.0")
+        link(rel='stylesheet', href='/bootstrap/css/bootstrap.css')
+        link(rel='stylesheet', href='/stylesheets/github-forkme.css')
+        link(rel='stylesheet', href='/stylesheets/template.css')
+        link(rel='stylesheet', href='http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css')
+        link(rel='stylesheet', href='https://raw.github.com/noizwaves/bootstrap-social-buttons/master/social-buttons-3.css')
 
-  body
-    include header
-    block content
-    include footer
+    body
+        include header
+        block content
+        include footer
 

@@ -4,8 +4,10 @@
 
 exports.index = function(req, res)
 {
-  res.render('index', 
-  	{ title: 'Express', 
-  	  opencv_info: ""//cv.buildInformation()
-  	});
+  res.render('index');
+};
+
+exports.about = function(req, res)
+{
+  res.render('about');
 };

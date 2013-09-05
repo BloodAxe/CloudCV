@@ -21,12 +21,26 @@ app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
+
 // development only
 if ('development' == app.get('env'))
 {
 	app.use(express.errorHandler());
 }
 
+// Static pages
+app.get('/',      routes.index);
+app.get('/about', function(req, res) { res.render('about'); });
 
-app.get('/', routes.index);
+// Demo endpoints:
+app.get('/demo/sudoku',        function(req, res) { res.render('demo-sudoku'); });
+app.get('/demo/recognition',   function(req, res) { res.render('demo-recognition'); });
+app.get('/demo/analysis',      function(req, res) { res.render('demo-analysis'); });
+
+/*
+app.post('/demos/sudoku',      demos.sudoku);
+app.post('/demos/recognition', demos.recognition);
+app.post('/demos/analysis',    demos.analysis);
+*/
+
 app.listen(80);

@@ -1,24 +1,29 @@
 block footer
 
 nav.navbar.navbar-inverse.navbar-fixed-bottom
-    div.pull-right
-        p.navbar-text
-            | Hosted by&nbsp;
-            a(href="https://www.digitalocean.com/?refcode=b93faa829f80")
-                img(src="/images/digital-ocean-logo-white.png")
-
     div.container
-        ul.nav.navbar-nav
-            li
-                a(href="http://github.com/BloodAxe/CloudCV")
-                    i.icon-github-alt.icon-2x
-                    | &nbsp;CloudCV
-                    
-            li
-                a(href="http://twitter.com/cvtalks")
-                    i.icon-twitter.icon-2x
-                    | &nbsp;@cvtalks
+        div.navbar-inner
+            div.pull-right
+                p.navbar-text
+                    | Hosted by&nbsp;
+                    a(href="https://www.digitalocean.com/?refcode=b93faa829f80",alt="Digital Ocean",title="Support this site by purchasing yur own cloud with this referal link")
+                        img(src="/images/digital-ocean-logo-white.png")
 
+            ul.nav.navbar-nav
+                li
+                    a(href="http://ua.linkedin.com/in/cvtalks/")
+                        i.icon-linkedin-sign.icon-3x
+                        | &nbsp;About me
+
+                li
+                    a(href="http://github.com/BloodAxe/CloudCV")
+                        i.icon-github-alt.icon-3x
+                        | &nbsp;CloudCV
+                        
+                li
+                    a(href="http://twitter.com/cvtalks")
+                        i.icon-twitter.icon-3x
+                        | &nbsp;@cvtalks
 
 script(src="http://code.jquery.com/jquery-2.0.3.min.js")
 script(src="/bootstrap/js/bootstrap.js")
