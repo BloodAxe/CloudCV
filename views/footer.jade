@@ -1,19 +1,24 @@
 block footer
 
 nav.navbar.navbar-inverse.navbar-fixed-bottom
-    div.pull-left
-        p.navbar-text
-            | &copy;&nbsp;
-            a(href='about') Ievgen Khvedchenia
-            | &nbsp;2013
-            a(href="https://twitter.com/cvtalks") @cvtalks
-            | &nbsp;
-            a(href="http://computer-vision-talks.com") Computer Vision Talks
     div.pull-right
         p.navbar-text
             | Hosted by&nbsp;
             a(href="https://www.digitalocean.com/?refcode=b93faa829f80")
                 img(src="/images/digital-ocean-logo-white.png")
+
+    div.container
+        ul.nav.navbar-nav
+            li
+                a(href="http://github.com/BloodAxe/CloudCV")
+                    i.icon-github-alt.icon-2x
+                    | &nbsp;CloudCV
+                    
+            li
+                a(href="http://twitter.com/cvtalks")
+                    i.icon-twitter.icon-2x
+                    | &nbsp;@cvtalks
+
 
 script(src="http://code.jquery.com/jquery-2.0.3.min.js")
 script(src="/bootstrap/js/bootstrap.js")
