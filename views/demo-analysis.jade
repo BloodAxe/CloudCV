@@ -14,19 +14,25 @@ block content
                 div.thumbnail
                     img(src="/images/lena-128.png")
                     div.caption
-                        button.btn.btn-default(type="submit") Lena 
+                        form(method="post")
+                            input(type="hidden",value="lena")
+                            button.btn.btn-default(type="submit") Lena 
     
             div.col-sm-6.col-md-2
                 div.thumbnail
                     img(src="/images/mandrill-128.png")
                     div.caption
-                        button.btn.btn-default(type="submit") Mandrill 
+                        form(method="post")
+                            input(type="hidden",value="mandrill")
+                            button.btn.btn-default(type="submit") Mandrill 
 
             div.col-sm-6.col-md-2
                 div.thumbnail
                     img(src="/images/sudoku-128.png")
                     div.caption
-                        button.btn.btn-default(type="submit") Test 
+                        form(method="post")
+                            input(type="hidden",value="sudoku")
+                            button.btn.btn-default(type="submit") Test 
 
         p Or upload your own image for test:
 
