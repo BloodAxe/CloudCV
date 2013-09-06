@@ -7,4 +7,27 @@ block content
     div.container
         h1 Image analysis example
 
-        p Work in progress
+        p You may pick one of the existing images for a quick result from the following:
+
+        div.row
+            div.col-sm-6.col-md-2
+                div.thumbnail
+                    img(src="/images/lena-128.png")
+                    div.caption
+                        button.btn.btn-default(type="submit") Lena 
+    
+            div.col-sm-6.col-md-2
+                div.thumbnail
+                    img(src="/images/mandrill-128.png")
+                    div.caption
+                        button.btn.btn-default(type="submit") Mandrill 
+
+            div.col-sm-6.col-md-2
+                div.thumbnail
+                    img(src="/images/sudoku-128.png")
+                    div.caption
+                        button.btn.btn-default(type="submit") Test 
+
+        p Or upload your own image for test:
+
+        img(data-src="holder.js/128x128")

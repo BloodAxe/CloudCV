@@ -29,8 +29,9 @@ if ('development' == app.get('env'))
 }
 
 // Static pages
-app.get('/',      routes.index);
-app.get('/about', function(req, res) { res.render('about'); });
+app.get('/',        routes.index);
+app.get('/about',   function(req, res) { res.render('about'); });
+app.get('/privacy', function(req, res) { res.render('privacy'); });
 
 // Demo endpoints:
 app.get('/demo/sudoku',        function(req, res) { res.render('demo-sudoku'); });
