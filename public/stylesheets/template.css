@@ -37,19 +37,29 @@ body {
     border-radius: 4px 0 4px 0;
 }
 
-#content #viewport {
+.img-select-viewport {
+    width: 128px;
+    height: 128px;
+}
+
+.img-select-viewport {
     clear: both;
-    margin-top: 25px;
-    margin-bottom: 10px;
-    width: 200px;
-    height: 200px;
-    border: 2px #e65700 dashed;
-    border-radius: 20px;
     position: relative;
     cursor: pointer;
     overflow: hidden;
 }
-#content #viewport input#file-selector {
+
+
+.img-select-viewport canvas#file-preview {
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+}
+
+.img-select-viewport input#file-selector {
     position: absolute;
     top: 0;
     left: 0;
@@ -57,52 +67,4 @@ body {
     height: 100%;
     opacity: 0;
     cursor: pointer;
-}
-
-
-
-#content #viewport #view-hint {
-    color: #454545;
-    left: 50%;
-    margin-left: -60px;
-    border-radius: 8px;
-    width: 120px;
-    text-align: center;
-    top: 50%;
-    line-height: 150%;
-    margin-top: -60px;
-    height: 50px;
-    position: absolute;
-    background: #ffffff;
-    opacity: 0.5;
-}
-
-#content #viewport #view-horz {
-    background: #e65700;
-    height: 16px;
-    width: 2px;
-    top: 50%;
-    left: 50%;
-    margin-top: 0px;
-    margin-left: -1px;
-    position: absolute;
-    opacity: 0.5;
-}
-
-#content #viewport #view-vtic {
-    background: #e65700;
-    width: 16px;
-    height: 2px;
-    top: 50%;
-    left: 50%;
-    margin-top: 7px;
-    margin-left: -8px;
-    position: absolute;
-    opacity: 0.5;
-}
-
-#content #viewport #output {
-    border-radius: 20px;
-    position: absolute;
-    overflow: hidden;
 }
