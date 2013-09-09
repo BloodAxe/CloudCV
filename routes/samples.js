@@ -36,7 +36,7 @@ exports.analysis = function(req, res)
     if (isInputImageValid(img))
     {
         console.log(img);
-        fs.readFile('/Users/bloodaxe/Develop/cvtalks/CloudCV/public/images/' + img + ".png", function(err, data) {
+        fs.readFile(__dirname + "/../public/images/" + img + ".png", function(err, data) {
             if (err) throw err;
 
             console.log("File readed");
