@@ -4,6 +4,8 @@ var http = require('http');
 var path = require('path');
 var fs = require('fs');
 
+var examples = require('./routes/samples.js');
+
 var app = express();
 
 // all environments
@@ -26,8 +28,8 @@ app.get('/about',   function(req, res) { res.render('about'); });
 app.get('/privacy', function(req, res) { res.render('privacy'); });
 
 // Demo endpoints:
-app.all('/demo/sudoku',        function(req, res) { res.render('demo-sudoku'); });
-app.all('/demo/recognition',   function(req, res) { res.render('demo-recognition'); });
-app.all('/demo/analysis',      function(req, res) { res.render('demo-analysis'); });
+app.all('/demo/sudoku',        examples.sudoku);
+app.all('/demo/recognition',   examples.recognition);
+app.all('/demo/analysis',      examples.analysis);
 
 module.exports = app;
