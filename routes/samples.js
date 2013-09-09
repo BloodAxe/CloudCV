@@ -45,6 +45,7 @@ exports.analysis = function(req, res)
                 console.log("Image analyzed");
                 console.log(result);
 
+                result.source = '/images/' + img + '.png';
                 res.render('demo-analysis', 
                     {
                         "result":   result, 

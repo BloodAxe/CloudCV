@@ -32,24 +32,47 @@ block content
                     div.caption
                         form(method="post")
                             input(type="hidden",name="image",value="sudoku")
-                            button.btn.btn-default(type="submit") Test 
+                            button.btn.btn-default(type="submit") Sudoku 
 
-            div.col-sm-6.col-md-2
-                div.thumbnail
-                    img(src="holder.js/128x128")
-                    div.caption
-                        form(method="post")
-                            input(type="hidden",value="sudoku")
-                            button.btn.btn-default.disabled(type="submit") Choose image 
+            //-div.col-sm-6.col-md-2
+            //-    div.thumbnail
+            //-        div.img-select-viewport
+            //-            img(data-src="holder.js/128x128")
+            //-            canvas(width="128",height="128",id="file-preview")                    
+            //-            input(type="file",id="file-selector",accept="image/*")
+            //-        div.caption                            
+            //-            a.btn.btn-default(onclick="$('#file-selector').click();") Choose image 
+
+        script.
+            $(function() {
+                $(CV).bind("imageSelected", function(image) {
+                    
+                    function successCallback(data, status, request)
+                    {
+                        console.log("Callback succeeded");
+                        console.log(data);
+                    }
+
+                    $.ajax({
+                        url: "/api",
+                        type: "POST",
+                        data: {  },
+                        success: successCallback
+                        });
+                });
+            });
 
 
-        - if (typeof(result) !== 'undefined'){
-        h2 Analyze results
-        p Histogram
-        img(src="#{result.histogram}")
-        
-        ul
-            li Image aspect ratio is #{result.aspectNum} : #{result.aspectDenom}
-            li Brightness #{result.brightness}
-            li Execution time #{result.processingTimeMs} ms
-        -}
+
+        div.output(id="output")
+            - if (typeof(result) !== 'undefined'){
+            h2 Analyze results
+            img(src="#{result.source}")
+            h4 Histogram
+            img(src="#{result.histogram}")
+            h4 Characteristics
+            ul
+                li Image aspect ratio is #{result.aspectNum} : #{result.aspectDenom}
+                li Brightness #{result.brightness}
+                li Execution time #{result.processingTimeMs} ms
+            -}
