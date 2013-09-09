@@ -1,12 +1,12 @@
-var express = require('express');
-var routes = require('./routes');
-var http = require('http');
-var path = require('path');
-var fs = require('fs');
+var express  = require('express');
+var http     = require('http');
+var path     = require('path');
 
+var api      = require('./api');
+var routes   = require('./routes');
 var examples = require('./routes/samples.js');
 
-var app = express();
+var app      = express();
 
 // all environments
 app.set('views', __dirname + '/views');
@@ -31,5 +31,7 @@ app.get('/privacy', function(req, res) { res.render('privacy'); });
 app.all('/demo/sudoku',        examples.sudoku);
 app.all('/demo/recognition',   examples.recognition);
 app.all('/demo/analysis',      examples.analysis);
+
+app.all('/api',                api.index);
 
 module.exports = app;
