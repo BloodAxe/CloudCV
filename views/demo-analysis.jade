@@ -70,9 +70,15 @@ block content
             img(src="#{result.source}")
             h4 Histogram
             img(src="#{result.histogram}")
+            h4 Canny edges
+            img(src="#{result.canny}")
+            h4 Laplaccian
+            img(src="#{result.laplaccian}")
+            h4 Lines
+            img(src="#{result.lines}")
             h4 Characteristics
             ul
-                li Image aspect ratio is #{result.aspectNum} : #{result.aspectDenom}
+                li Image aspect ratio is #{result.aspectRatio.width} : #{result.aspectRatio.height}
                 li Brightness #{result.brightness}
                 li Execution time #{result.processingTimeMs} ms
             -}
