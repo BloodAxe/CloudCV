@@ -43,42 +43,74 @@ block content
             //-        div.caption                            
             //-            a.btn.btn-default(onclick="$('#file-selector').click();") Choose image 
 
-        script.
-            $(function() {
-                $(CV).bind("imageSelected", function(image) {
-                    
-                    function successCallback(data, status, request)
-                    {
-                        console.log("Callback succeeded");
-                        console.log(data);
-                    }
 
-                    $.ajax({
-                        url: "/api",
-                        type: "POST",
-                        data: {  },
-                        success: successCallback
-                        });
-                });
-            });
 
 
 
         div.output(id="output")
+        
             - if (typeof(result) !== 'undefined'){
+
             h2 Analyze results
-            img(src="#{result.source}")
-            h4 Histogram
-            img(src="#{result.histogram}")
-            h4 Canny edges
-            img(src="#{result.canny}")
-            h4 Laplaccian
-            img(src="#{result.laplaccian}")
-            h4 Lines
-            img(src="#{result.lines}")
-            h4 Characteristics
-            ul
-                li Image aspect ratio is #{result.aspectRatio.width} : #{result.aspectRatio.height}
-                li Brightness #{result.brightness}
-                li Execution time #{result.processingTimeMs} ms
+
+            div.panel.panel-default
+                .panel-heading Source image
+                .panel-body
+                    .row
+                        .col-md-6       
+                            img(src="#{result.source}")
+                        .col-md-6       
+                            - if (result.common.hasColor) {   
+                            img(src="#{result.color.histogramImage}")
+                            - }
+                            br
+                            br
+                            ul
+                                li Image frame size #{result.common.frameSize.width}:#{result.common.frameSize.height}
+                                li Image aspect ratio is #{result.common.aspectRatio.width}:#{result.common.aspectRatio.height}
+                                                         
+
+            div.panel.panel-default
+                .panel-heading Grayscale
+                .panel-body
+                    .row
+                        .col-md-6       
+                            img(src="#{result.common.grayscaleImage}")
+                        .col-md-6       
+                            img(src="#{result.grayscale.histogramImage}")
+                            br
+                            br
+                            ul
+                                li Contrast #{result.grayscale.rmsContrast}
+                                li Min brightness #{result.grayscale.intensity.min}
+                                li Max brightness #{result.grayscale.intensity.max}
+                                li Average brightness #{result.grayscale.intensity.average}
+
+            - if (result.common.hasColor) {
+
+            div.panel.panel-default
+                .panel-heading Analyze of colors
+                .panel-body
+                    .row
+                        .col-md-6       
+                            img(src="#{result.color.dominantColorsImage}")
+                        .col-md-6       
+                            ul
+                                li Total unique colors - #{result.color.uniqieColors}
+                                li Reduced colors - #{result.color.reducedColors}
+                                li Dominant colors - #{result.color.dominantColors.length}
+
+            - } 
+
+            div.panel.panel-default
+                .panel-heading Edges
+                .panel-body
+                    .row
+                        .col-md-6       
+                            img(src="#{result.edges.cannyImage}")
+                        .col-md-6       
+                            ul
+                                li Canny lower threshold #{result.edges.cannyLowerThreshold}
+                                li Canny upper threshold #{result.edges.cannyUpperThreshold}
+
             -}
