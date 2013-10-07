@@ -10,30 +10,15 @@ block content
         p You may pick one of the existing images for a quick result from the following:
 
         div.row
-            div.col-sm-6.col-md-2
-                div.thumbnail
-                    img(src="/images/lena-128.png")
-                    div.caption
-                        form(method="post")
-                            input(type="hidden",name="image",value="lena")
-                            button.btn.btn-default(type="submit") Lena 
+            each demoImage in example.availableImages
+                div.col-sm-6.col-md-2
+                    div.thumbnail
+                        img(src="#{demoImage.thumbnailURL}")
+                        div.caption
+                            form(method="post")
+                                input(type="hidden",name="image",value="#{demoImage.key}")
+                                button.btn.btn-default(type="submit") #{demoImage.key} 
     
-            div.col-sm-6.col-md-2
-                div.thumbnail
-                    img(src="/images/mandrill-128.png")
-                    div.caption
-                        form(method="post")
-                            input(type="hidden",name="image",value="mandrill")
-                            button.btn.btn-default(type="submit") Mandrill 
-
-            div.col-sm-6.col-md-2
-                div.thumbnail
-                    img(src="/images/sudoku-128.png")
-                    div.caption
-                        form(method="post")
-                            input(type="hidden",name="image",value="sudoku")
-                            button.btn.btn-default(type="submit") Sudoku 
-
             //-div.col-sm-6.col-md-2
             //-    div.thumbnail
             //-        div.img-select-viewport
