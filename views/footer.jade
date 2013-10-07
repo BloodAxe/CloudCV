@@ -1,16 +1,22 @@
 block footer
 
-nav.navbar.navbar-inverse.navbar-fixed-bottom
+nav.navbar.navbar-inverse.row-fluid.navbar-fixed-bottom
     div.container
         div.navbar-inner
-            div.pull-right
-                p.navbar-text
-                    | Hosted by&nbsp;
-                    a(href="https://www.digitalocean.com/?refcode=b93faa829f80",alt="Digital Ocean",title="Support this site by purchasing yur own cloud with this referal link")
-                        img(src="/images/digital-ocean-logo-white.png")
 
             ul.nav.navbar-nav
                 li
                     a(href="/privacy") Privacy statement
                 li
                     a(href="/about") About
+
+            ul.nav.navbar-nav.navbar-right
+                li
+                    a(href="https://www.digitalocean.com/?refcode=b93faa829f80",alt="Digital Ocean",title="Support this site by purchasing yur own cloud with this referal link")
+                        img(src="/images/digital-ocean-logo-white.png")
+
+script(src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js")
+script(src="/javascripts/ga.js")
+script(src="/javascripts/twitter-share.js")
+script(src="/javascripts/holder.js")
+script(src="/javascripts/cloudcv.js")

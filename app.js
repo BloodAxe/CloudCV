@@ -20,4 +20,3 @@ var options =
 http.createServer(app).listen(80);
 https.createServer(options, app).listen(443);
 
-//app.listen(80);
