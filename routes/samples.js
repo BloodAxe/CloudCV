@@ -3,16 +3,17 @@
  */
 
 var fs = require('fs');
-var cv = require('./cloudcv.node');
+var util = require('util');
+var cv = require('cloudcv');
 
 function exampleImages()
 {
     this.items = new Array();
 
-    this.addImage("lena",       "/images/lena-128.png",     "/images/lena.png");
-    this.addImage("mandrill",   "/images/mandrill-128.png", "/images/mandrill.png");
-    this.addImage("sudoku",     "/images/sudoku-128.png",   "/images/sudoku.png");
-    this.addImage("kid",        "/images/kid-128.jpg",      "/images/kid.jpg");
+    this.addImage("Lena",       "/images/lena-128.png",     "/images/lena.png");
+    this.addImage("Mandrill",   "/images/mandrill-128.png", "/images/mandrill.png");
+    this.addImage("Sudoku",     "/images/sudoku-128.png",   "/images/sudoku.png");
+    this.addImage("Kid",        "/images/kid-128.jpg",      "/images/kid.jpg");
 }
 
 exampleImages.prototype.addImage = function(key, thumbnail, source)
@@ -42,13 +43,11 @@ exampleImages.prototype.getImagePath = function(img)
 
 exports.sudoku = function(req, res)
 {
-    console.log(req);
     res.render('demo-sudoku');
 };
 
 exports.recognition = function(req, res)
 {
-    console.log(req);
     res.render('demo-recognition');
 };
 
@@ -57,14 +56,25 @@ exports.analysis = function(req, res)
     var imgs = new exampleImages();
     var img  = req.body.image;
 
- 
+    var renderDefaultPage = function() {
+        res.render('demo-analysis',
+            {
+                "example":  { "availableImages": imgs.items } 
+            });
+    }
+
     if (img && imgs.isInputImageValid(img))
     {
         var exampleImage = imgs[img];
         
-
         fs.readFile(exampleImage.source, function(err, data) {
-            if (err) throw err;
+
+            if (err) 
+            {
+                renderDefaultPage();
+                return;
+            }
+
 
             cv.analyze(data, function(result) {
 
@@ -77,11 +87,31 @@ exports.analysis = function(req, res)
             });
         });        
     }
+    else if (req.files && req.files.image)
+    {
+        var uploadedImg = req.files.image;
+        
+        fs.readFile(uploadedImg.path, function(err, data) {
+            
+            if (err) 
+            {
+                renderDefaultPage();
+                return;
+            }
+
+            cv.analyze(data, function(result) {
+
+                result.source = '';
+                res.render('demo-analysis', 
+                    {
+                        "result":   result, 
+                        "example":  { "availableImages": imgs.items }
+                    });        
+            });
+        });  
+    }
     else
     {
-        res.render('demo-analysis',
-            {
-                "example":  { "availableImages": imgs.items } 
-            });        
+        renderDefaultPage();      
     }
 };
