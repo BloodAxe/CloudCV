@@ -41,26 +41,24 @@ exampleImages.prototype.getImagePath = function(img)
     return this[img].source;
 }
 
-exports.sudoku = function(req, res)
-{
-    res.render('demo-sudoku');
-};
-
-exports.recognition = function(req, res)
-{
-    res.render('demo-recognition');
-};
-
-exports.analysis = function(req, res)
+function processRequest(req, res, view, work) 
 {
     var imgs = new exampleImages();
     var img  = req.body.image;
 
     var renderDefaultPage = function() {
-        res.render('demo-analysis',
+        res.render(view,
             {
                 "example":  { "availableImages": imgs.items } 
             });
+    }
+
+    var renderResultView = function(result) {
+        res.render(view, 
+        {
+            "result":   result, 
+            "example":  { "availableImages": imgs.items }
+        });  
     }
 
     if (img && imgs.isInputImageValid(img))
@@ -75,16 +73,11 @@ exports.analysis = function(req, res)
                 return;
             }
 
-
-            cv.analyze(data, function(result) {
-
+            work(data, function(result) {
                 result.source = exampleImage.sourceURL;
-                res.render('demo-analysis', 
-                    {
-                        "result":   result, 
-                        "example":  { "availableImages": imgs.items }
-                    });        
+                renderResultView(result);      
             });
+
         });        
     }
     else if (req.files && req.files.image)
@@ -99,14 +92,9 @@ exports.analysis = function(req, res)
                 return;
             }
 
-            cv.analyze(data, function(result) {
-
+            work(data, function(result) {
                 result.source = '';
-                res.render('demo-analysis', 
-                    {
-                        "result":   result, 
-                        "example":  { "availableImages": imgs.items }
-                    });        
+                renderResultView(result);      
             });
         });  
     }
@@ -114,4 +102,27 @@ exports.analysis = function(req, res)
     {
         renderDefaultPage();      
     }
+}
+
+exports.sudoku = function(req, res)
+{
+    res.render('demo-sudoku');
+};
+
+exports.recognition = function(req, res)
+{
+    processRequest(req, res, 'demo-recognition', function(data, cb) {
+        cv.detectFaces(data, function(result) {
+            cb(result);
+        });
+    });
+};
+
+exports.analysis = function(req, res)
+{
+    processRequest(req, res, 'demo-analysis', function(data, cb) {
+        cv.analyze(data, function(result) {
+            cb(result);
+        });
+    });
 };
