@@ -109,6 +109,10 @@ block content
 
             -}
 
+
+        h4 Tell us what do you think 
+        include includes/disqus
+
 block scripts
     script $(document).ready(function () { document.getElementById('file-selector').addEventListener('change', function(e) { console.log('file selected'); var f = $('#process-image-form'); console.log(f); f.submit(); } );  });
 

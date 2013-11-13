@@ -4,16 +4,18 @@ block content
   div.container
     h1 Welcome to CloudCV demonstration
   
-    img(src="/images/cloudcv-logo.png") Logo
-    p This website demonstrate interopability between Node.js and OpenCV library. It's hosted in the cloud environment. 
-      | Here you will see that it's really simple to perform CPU-intense image processing routines in the cloud. 
-      | A Node.js server handle client requests and calls C++ back-end. In this showcase demonstration you can try the following examples:
+    div
+      img.pull-left(src="/images/cloudcv-logo.png") Logo
+
+      p.lead This website demonstrate interopability between Node.js and OpenCV library. It's hosted in the cloud environment. 
+        | Here you will see that it's really simple to perform CPU-intense image processing routines in the cloud. 
+        | A Node.js server handle client requests and calls C++ back-end. In this showcase demonstration you can try the following examples:
     
     h2 Examples
     div.row
       div.col-sm-6.col-md-3
         div.thumbnail
-          img(src="/images/mandril-300x200.png",alt="...")
+          img.img-thumbnail(src="/images/mandril-300x200.png",alt="...")
           div.caption
             h3 Image analysis
             p A simple image analysis that extracts key characteristics of the input image.
@@ -23,7 +25,7 @@ block content
 
       div.col-sm-6.col-md-3
         div.thumbnail
-          img(src="/images/lena-300x200.png",alt="...")
+          img.img-thumbnail(src="/images/lena-300x200.png",alt="...")
           div.caption
             h3 Face Detection
             p Demonstration of simple face detection using Haar fetures and OpenCV CascadeDetector class. Recognition of faces will be added someday.
@@ -34,17 +36,19 @@ block content
 
       div.col-sm-6.col-md-3
         div.thumbnail
-          img(src="/images/sudoku-300x200.png",alt="...")
+          img.img-thumbnail(src="/images/sudoku-300x200.png",alt="...")
           div.caption
             h3 Sudoku solver
-            p An online sudoku solver. This sample analyze the input image and recognize the sudoku puzzle.
+            p An online sudoku solver. This example demonstrate how to analyze the input image, recognize the sudoku puzzle and solve it using OpenCV.
             p
               a.disabled.btn.btn-primary(href="/demo/sudoku") Coming soon
 
       div.col-sm-6.col-md-3
         div.thumbnail
-          img(src="holder.js/300x200",alt="...")
+          img.img-thumbnail(src="/images/ar-demo-300x200.jpg",alt="...")
           div.caption
-            h3 Demo of your choice
-            p Tweet me, which example you'd like to see here. 
+            h3 Augmented Reality
+            p A demonstration of cloud-based Augmented Reality platform. All processing is done on the server and the results is shown on the web-page or mobile device.
+            p
+              a.disabled.btn.btn-primary(href="/demo/sudoku") Coming soon
               
