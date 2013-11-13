@@ -20,13 +20,22 @@ filters.histogram = function(image, response, callback) {
     try
     {
         cv.analyze(image, function(result) {
-            var buffer = dataURItoBuffer(result.color.histogramImage);
-            
-            response.setHeader("Content-Type", "image/png");
-            response.write(buffer);
-            response.end(); 
 
-            callback(buffer);
+            if (result)
+            {
+                var buffer = dataURItoBuffer(result.color.histogramImage);
+                
+                response.setHeader("Content-Type", "image/png");
+                response.write(buffer);
+                response.end(); 
+
+                callback(buffer);                
+            }
+            else
+            {
+                response.statusCode = 415; // Unsupported Media Type
+                response.end();                 
+            }
         });
     }
     catch (e)
@@ -39,16 +48,26 @@ filters.histogram = function(image, response, callback) {
 };
 
 filters.dominantColors = function(image, response, callback) {
+
     try
     {
         cv.analyze(image, function(result) {
-            var buffer = dataURItoBuffer(result.color.dominantColorsImage);
 
-            response.setHeader("Content-Type", "image/png");
-            response.write(buffer);
-            response.end(); 
+            if (result)
+            {
+                var buffer = dataURItoBuffer(result.color.dominantColorsImage);
 
-            callback(buffer);
+                response.setHeader("Content-Type", "image/png");
+                response.write(buffer);
+                response.end(); 
+
+                callback(buffer);
+            }
+            else
+            {
+                response.statusCode = 415; // Unsupported Media Type
+                response.end();                 
+            }
         });
     }
     catch (e)
@@ -63,13 +82,22 @@ filters.detectFaces = function(image, response, callback) {
     try
     {
         cv.detectFaces(image, function(result) {
-            var buffer = dataURItoBuffer(result.imageWithFaces);
 
-            response.setHeader("Content-Type", "image/png");
-            response.write(buffer);
-            response.end();      
+            if (result)
+            {
+                var buffer = dataURItoBuffer(result.imageWithFaces);
 
-            callback(buffer);
+                response.setHeader("Content-Type", "image/png");
+                response.write(buffer);
+                response.end();      
+
+                callback(buffer);
+            }
+            else
+            {
+                response.statusCode = 415; // Unsupported Media Type
+                response.end();                 
+            }
         });
     }
     catch (e)

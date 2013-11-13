@@ -74,8 +74,13 @@ function processRequest(req, res, view, work)
             }
 
             work(data, function(result) {
-                result.source = exampleImage.sourceURL;
-                renderResultView(result);      
+                if (result) {
+                    result.source = exampleImage.sourceURL;
+                    renderResultView(result);                          
+                }
+                else {
+                    renderDefaultPage();
+                }
             });
 
         });        
@@ -93,8 +98,13 @@ function processRequest(req, res, view, work)
             }
 
             work(data, function(result) {
-                result.source = '';
-                renderResultView(result);      
+                if (result) {
+                    result.source = '';
+                    renderResultView(result);      
+                }
+                else {
+                    renderDefaultPage();                    
+                }
             });
         });  
     }
@@ -126,3 +136,9 @@ exports.analysis = function(req, res)
         });
     });
 };
+
+
+exports.augmentedReality = function(req, res)
+{
+    res.render("demo-ar");
+}
