@@ -17,33 +17,67 @@ function dataURItoBuffer(dataURI)
 var filters = {};
 
 filters.histogram = function(image, response, callback) {
-    cv.analyze(image, function(result) {
-        var buffer = dataURItoBuffer(result.color.histogramImage);
-        response.setHeader("Content-Type", "image/png");
-        response.write(buffer);
-        response.end();
-        callback(buffer);
-    });
+    try
+    {
+        cv.analyze(image, function(result) {
+            var buffer = dataURItoBuffer(result.color.histogramImage);
+            
+            response.setHeader("Content-Type", "image/png");
+            response.write(buffer);
+            response.end(); 
+
+            callback(buffer);
+        });
+    }
+    catch (e)
+    {
+        console.error(e);
+        response.statusCode = 500;
+        response.end(); 
+        callback(null);
+    }
 };
 
 filters.dominantColors = function(image, response, callback) {
-    cv.analyze(image, function(result) {
-        var buffer = dataURItoBuffer(result.color.dominantColorsImage);
-        response.setHeader("Content-Type", "image/png");
-        response.write(buffer);
-        response.end();
-        callback(buffer);
-    });
+    try
+    {
+        cv.analyze(image, function(result) {
+            var buffer = dataURItoBuffer(result.color.dominantColorsImage);
+
+            response.setHeader("Content-Type", "image/png");
+            response.write(buffer);
+            response.end(); 
+
+            callback(buffer);
+        });
+    }
+    catch (e)
+    {
+        console.error(e);
+        response.statusCode = 500;
+        callback(null);
+    }
 };
 
 filters.detectFaces = function(image, response, callback) {
-    cv.detectFaces(image, function(result) {
-        var buffer = dataURItoBuffer(result.imageWithFaces);
-        response.setHeader("Content-Type", "image/png");
-        response.write(buffer);
-        response.end();
-        callback(buffer);
-    });
+    try
+    {
+        cv.detectFaces(image, function(result) {
+            var buffer = dataURItoBuffer(result.imageWithFaces);
+
+            response.setHeader("Content-Type", "image/png");
+            response.write(buffer);
+            response.end();      
+
+            callback(buffer);
+        });
+    }
+    catch (e)
+    {
+        console.error(e);
+        response.statusCode = 500;
+        callback(null);
+    }
 };
 
 var handleApiRequest = function(filter, url, res) {
@@ -68,7 +102,8 @@ var handleApiRequest = function(filter, url, res) {
 
         myCache.get(key, function( err, value ) {
             console.log(value);
-          if( !err && value[key]) {
+          if( !err && value[key])
+          {
             res.setHeader("Content-Type", "image/png");
             res.send(value[key]);
           }

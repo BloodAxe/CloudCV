@@ -37,7 +37,7 @@ app.all('/demo/analysis',      examples.analysis);
 
 
 //var urlRegex = '(https?:\\/\\/)?([\\w\\.]+)\\.([a-z]{2,6}\\.?)(\\/[\\w\\.]*)*';
-var urlRegex = '[\\w\\.]+\/[\/\\w\\.\-]+';
+var urlRegex = '[\\w\\.]+\/[\/\\w\.\-]+';
 
 app.get('/api/:filter/http\://:url(' + urlRegex + ')', function(req, res) {
     api.handleRequest(req.params.filter, 'http://' + req.params.url, res);
