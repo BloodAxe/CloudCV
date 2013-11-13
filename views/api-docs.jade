@@ -1,0 +1,137 @@
+extends layout
+
+block content
+  div.container
+    h1 API Documentation
+    
+    h2 Transport
+
+    h3 HTTP
+    p.lead HTTP-based API a allows you to have a link to result of image processing of arbitrary image specified by URL.
+
+    div.bs-callout.bs-callout-info
+        h4 Example
+        p
+        | http://cloudcv.io/api/
+        strong
+            | filter
+        |/
+        strong
+            | image_url_goes_here
+
+    h3 JSON
+    p.text-muted
+        i Coming soon
+
+    h3 Web-Socket
+    p.text-muted
+        i Coming soon
+
+    h2 Supported filters:
+    ul
+        li 
+            a(href="#histogram") Histogram
+        li 
+            a(href="#dominant-colors") Dominant colors
+        li 
+            a(href="#face-detection") Face detection
+
+    a(name="histogram")
+    h3 Histogram 
+
+    p This filter compute the image histogram for each of R, G and B channel. 
+    div.bs-callout.bs-callout-info
+        h4 Example
+        p
+        | http://cloudcv.io/api/histogram/
+        strong
+            | image_url_goes_here
+
+    div.panel.panel-default
+        div.panel-heading
+            h4 Demonstration
+        div.panel-body
+            div.bs-example
+                form
+                    div.form-group
+                        label(for="histogram-url") Image URL
+                        input.form-control(type="url",id="histogram-url",placeholder="Paste image URL here")
+                    div.row
+                        div.col-md-3
+                            img.img-thumbnail(data-src="holder.js/256x256/text:Paste image first",id="histogram-source")
+                        div.col-md-9
+                            img.img-thumbnail(data-src="holder.js/512x256/text:Magic will be shown here",id="histogram-result")
+
+    a(name="dominant-colors")
+    h3 Dominant colors 
+    p This filter extracts N dominant colors from the given image. The number of dominant colors is automatically selected based on image content.
+    div.bs-callout.bs-callout-info
+        h4 Example
+        p
+        | http://cloudcv.io/api/dominantColors/
+        strong
+            | image_url_goes_here
+
+    div.panel.panel-default
+        div.panel-heading
+            h3 Demonstration
+        div.panel-body
+            div.bs-example
+                form
+                    div.form-group
+                        label(for="dominantColors-url") Image URL
+                        input.form-control(type="url",id="dominantColors-url",placeholder="Paste image URL here")
+                    div.row
+                        div.col-md-3
+                            img.img-thumbnail(data-src="holder.js/256x256/text:Paste image first",id="dominantColors-source")
+                        div.col-md-9
+                            img.img-thumbnail(data-src="holder.js/256x256/text:Magic will be shown here",id="dominantColors-result")
+
+    a(name="face-detection")
+    h3 Face detection
+    p This filter detects faces using Haar-like features.
+    div.bs-callout.bs-callout-info
+        h4 Example
+        p
+        | http://cloudcv.io/api/detectFaces/
+        strong
+            | image_url_goes_here
+
+    div.panel.panel-default
+        div.panel-heading
+            h3 Demonstration
+        div.panel-body
+            div.bs-example
+                form
+                    div.form-group
+                        label(for="detectFaces-url") Image URL
+                        input.form-control(type="url",id="detectFaces-url",placeholder="Paste image URL here")
+                    div.row
+                        div.col-md-3
+                            img.img-thumbnail(data-src="holder.js/256x256/text:Paste image first",id="detectFaces-source")
+                        div.col-md-9
+                            img.img-thumbnail(data-src="holder.js/256x256/text:Magic will be shown here",id="detectFaces-result")
+
+    include includes/disqus
+
+block scripts
+    script.
+        $(document).ready(function () {
+            $('#histogram-url').change(function() { 
+                var url = $('#histogram-url').val();
+                $('#histogram-source').attr('src', url); 
+                $('#histogram-result').attr('src', '/api/histogram/' + url); 
+            });
+
+            $('#dominantColors-url').change(function() { 
+                var url = $('#dominantColors-url').val();
+                $('#dominantColors-source').attr('src', url); 
+                $('#dominantColors-result').attr('src', '/api/dominantColors/' + url); 
+            });
+
+            $('#detectFaces-url').change(function() { 
+                var url = $('#detectFaces-url').val();
+                $('#detectFaces-source').attr('src', url); 
+                $('#detectFaces-result').attr('src', '/api/detectFaces/' + url); 
+            });
+        });
