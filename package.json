@@ -11,6 +11,8 @@
   {
     "express": "3.3.5",
     "jade": "*",
+    "request": "*",
+    "node-cache": "*",
     "cloudcv": "git://github.com/BloodAxe/CloudCVBackend.git"
   },
   
