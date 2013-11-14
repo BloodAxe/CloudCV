@@ -21,7 +21,7 @@ var http_server  = http.createServer(app);
 var https_server = https.createServer(options, app);
 
 var sockets = require("./routes/socket.js");
-sockets.bindTo(http);
+sockets.bindTo(http_server);
 
 http_server.listen(80);
 https_server.listen(443);
