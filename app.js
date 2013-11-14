@@ -17,6 +17,11 @@ var options =
   cert: fs.readFileSync('/etc/ssl/cloudcv/cloudcv-cert.pem')
 };
 
-http.createServer(app).listen(80);
-https.createServer(options, app).listen(443);
+var http_server  = http.createServer(app);
+var https_server = https.createServer(options, app);
 
+var sockets = require("./routes/socket.js");
+sockets.bindTo(http);
+
+http_server.listen(80);
+https_server.listen(443);

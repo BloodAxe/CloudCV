@@ -136,9 +136,3 @@ exports.analysis = function(req, res)
         });
     });
 };
-
-
-exports.augmentedReality = function(req, res)
-{
-    res.render("demo-ar");
-}

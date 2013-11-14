@@ -30,9 +30,10 @@ app.get('/privacy', function(req, res) { res.render('privacy'); });
 app.get('/api/docs', function(req, res) { res.render('api-docs'); });
 
 // Demo endpoints:
-app.all('/demo/sudoku',        examples.sudoku);
-app.all('/demo/recognition',   examples.recognition);
-app.all('/demo/analysis',      examples.analysis);
+app.all('/demo/sudoku',            examples.sudoku);
+app.all('/demo/recognition',       examples.recognition);
+app.all('/demo/analysis',          examples.analysis);
+app.all('/demo/analysis-live',     function(req, res) { res.render('demo-analysis-live'); });
 
 
 
