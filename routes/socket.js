@@ -39,7 +39,28 @@ SocketServer.prototype.bindTo = function(server) {
             });
             
         });
+    });
 
+    this.channels = {};
+    this.channels.detectMarkers = this.io.of('/socket/detectMarkers')
+    .on('connection', function (socket) {
+
+        socket.on('frame', function(frame) {
+
+            var image = dataURItoBuffer(frame);
+            
+            cv.detectMarkers(image, function(result) {
+                
+                if (!result)
+                {
+                    console.error('cv.detectMarkers return empty result');
+                    return;
+                }
+
+                socket.emit('result', result);
+            });
+            
+        });
     });
 };
 

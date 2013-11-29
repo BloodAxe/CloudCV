@@ -34,6 +34,7 @@ app.all('/demo/sudoku',            examples.sudoku);
 app.all('/demo/recognition',       examples.recognition);
 app.all('/demo/analysis',          examples.analysis);
 app.all('/demo/analysis-live',     function(req, res) { res.render('demo-analysis-live'); });
+app.all('/demo/ar-live',           function(req, res) { res.render('demo-ar-live'); });
 
 
 
