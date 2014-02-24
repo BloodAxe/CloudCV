@@ -15,7 +15,7 @@ block content
 
         form(method='post',id='process-image-form',enctype="multipart/form-data",style='opacity:0')                   
             input(type="file",name='image',id="file-selector",accept="image/*")
-            input(type='submit') Submit
+            input(type='submit')
 
         div.row
             each demoImage in example.availableImages
@@ -125,4 +125,4 @@ block scripts
                     $('html, body').animate({scrollTop: l}, 200); 
                 
             });
-    -}
+    - }

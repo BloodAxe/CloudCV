@@ -15,7 +15,7 @@ block content
 
         form(method='post',id='process-image-form',enctype="multipart/form-data",style='opacity:0')                   
             input(type="file",name='image',id="file-selector",accept="image/*")
-            input(type='submit') Submit
+            input(type='submit')
 
         div.row
             each demoImage in example.availableImages
@@ -36,23 +36,23 @@ block content
 
         div.output(id="output")
         
-            - if (typeof(result) !== 'undefined') {
+            if (typeof(result) !== 'undefined')
 
-            h2 Detected faces
-                a(href='#content')
+                h2 Detected faces
+                    a(href='#content')
 
-            div.panel.panel-default
-                .panel-heading Result
-                .panel-body
-                    .row
-                        .col-md-6       
-                            img(src="#{result.imageWithFaces}")
-                        .col-md-6       
-                            
-                            ul
-                                li Total detected faces #{result.faces.length}
-                                li Detection time #{result.detectionTimeMs}
-            -}                                     
+                div.panel.panel-default
+                    .panel-heading Result
+                    .panel-body
+                        .row
+                            .col-md-6       
+                                img(src="#{result.imageWithFaces}")
+                            .col-md-6       
+                                
+                                ul
+                                    li Total detected faces #{result.faces.length}
+                                    li Detection time #{result.detectionTimeMs}
+                                                 
 
         h4 Tell us what do you think    
         include includes/disqus
@@ -60,7 +60,7 @@ block content
 block scripts
     script $(document).ready(function () { document.getElementById('file-selector').addEventListener('change', function(e) { console.log('file selected'); var f = $('#process-image-form'); console.log(f); f.submit(); } );  });
 
-    - if (typeof(result) !== 'undefined'){
+    if (typeof(result) !== 'undefined')
         script.
             $(document).ready(function () { 
                 
@@ -69,4 +69,4 @@ block scripts
                     $('html, body').animate({scrollTop: l}, 200); 
                 
             });
-    -}
+    
