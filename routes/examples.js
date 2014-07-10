@@ -2,9 +2,9 @@
  * Back-end logic
  */
 
-var fs = require('fs');
+var fs   = require('fs');
 var util = require('util');
-var cv = require('cloudcv');
+var cv   = require('cloudcv');
 
 function exampleImages()
 {
@@ -74,7 +74,7 @@ function processRequest(req, res, view, work)
             }
 
             work(data, function(result) {
-                if (result) {
+                if (result && !error) {
                     result.source = exampleImage.sourceURL;
                     renderResultView(result);                          
                 }
@@ -97,7 +97,7 @@ function processRequest(req, res, view, work)
                 return;
             }
 
-            work(data, function(result) {
+            work(data, function(error, result) {
                 if (result) {
                     result.source = '';
                     renderResultView(result);      
@@ -114,18 +114,9 @@ function processRequest(req, res, view, work)
     }
 }
 
-exports.sudoku = function(req, res)
+exports.calibration = function(req, res)
 {
-    res.render('demo-sudoku');
-};
-
-exports.recognition = function(req, res)
-{
-    processRequest(req, res, 'demo-recognition', function(data, cb) {
-        cv.detectFaces(data, function(result) {
-            cb(result);
-        });
-    });
+    res.render('demo-calibration');
 };
 
 exports.analysis = function(req, res)

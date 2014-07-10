@@ -29,9 +29,6 @@ if (fs.existsSync(ca) && fs.existsSync(key) && fs.existsSync(cert)) {
     https_server = https.createServer(options, app);
 }
 
-var sockets = require("./routes/socket.js");
-sockets.bindTo(http_server);
-
 http_server.listen(80);
 
 if (https_server) {

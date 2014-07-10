@@ -87,13 +87,13 @@ block content
                         div.col-md-9
                             img.img-thumbnail(data-src="holder.js/256x256/text:Magic will be shown here",id="dominantColors-result")
 
-    a(name="face-detection")
-    h3 Face detection
-    p This filter detects faces using Haar-like features.
+    a(name="camera-calibration")
+    h3 Camera calibration
+    p Detection of chessboard corners on the image
     div.bs-callout.bs-callout-info
         h4 Example
         p
-        | http://cloudcv.io/api/detectFaces/
+        | http://cloudcv.io/api/calibrationPatternDetect/
         strong
             | image_url_goes_here
 
@@ -104,13 +104,13 @@ block content
             div.bs-example
                 form
                     div.form-group
-                        label(for="detectFaces-url") Image URL
-                        input.form-control(type="url",id="detectFaces-url",placeholder="Paste image URL here")
+                        label(for="calibrationPatternDetect-url") Image URL
+                        input.form-control(type="url",id="calibrationPatternDetect-url",placeholder="Paste image URL here")
                     div.row
                         div.col-md-3
-                            img.img-thumbnail(data-src="holder.js/256x256/text:Paste image first",id="detectFaces-source")
+                            img.img-thumbnail(data-src="holder.js/256x256/text:Paste image first",id="calibrationPatternDetect-source")
                         div.col-md-9
-                            img.img-thumbnail(data-src="holder.js/256x256/text:Magic will be shown here",id="detectFaces-result")
+                            img.img-thumbnail(data-src="holder.js/256x256/text:Magic will be shown here",id="calibrationPatternDetect-result")
 
     include includes/disqus
 
@@ -129,9 +129,9 @@ block scripts
                 $('#dominantColors-result').attr('src', '/api/dominantColors/' + url); 
             });
 
-            $('#detectFaces-url').change(function() { 
-                var url = $('#detectFaces-url').val();
-                $('#detectFaces-source').attr('src', url); 
-                $('#detectFaces-result').attr('src', '/api/detectFaces/' + url); 
+            $('#calibrationPatternDetect-url').change(function() { 
+                var url = $('#calibrationPatternDetect-url').val();
+                $('#calibrationPatternDetect-source').attr('src', url); 
+                $('#calibrationPatternDetect-result').attr('src', '/api/calibrationPatternDetect/' + url); 
             });
         });

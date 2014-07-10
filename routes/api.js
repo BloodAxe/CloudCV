@@ -78,26 +78,12 @@ filters.dominantColors = function(image, response, callback) {
     }
 };
 
-filters.detectFaces = function(image, response, callback) {
+filters.calibrationPatternDetect = function(image, response, callback) {
+
     try
     {
-        cv.detectFaces(image, function(result) {
-
-            if (result)
-            {
-                var buffer = dataURItoBuffer(result.imageWithFaces);
-
-                response.setHeader("Content-Type", "image/png");
-                response.write(buffer);
-                response.end();      
-
-                callback(buffer);
-            }
-            else
-            {
-                response.statusCode = 415; // Unsupported Media Type
-                response.end();                 
-            }
+        cv.calibrationPatternDetect(image, function(result) {
+            
         });
     }
     catch (e)
@@ -106,7 +92,7 @@ filters.detectFaces = function(image, response, callback) {
         response.statusCode = 500;
         callback(null);
     }
-};
+}
 
 var handleApiRequest = function(filter, url, res) {
     
