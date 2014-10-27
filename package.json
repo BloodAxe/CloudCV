@@ -2,23 +2,20 @@
   "name": "CloudCV",
   "version": "0.0.1",
   "private": false,
-  "scripts":
-  {
+  "scripts": {
     "start": "node app.js"
   },
-  
-  "dependencies":
-  {
+  "dependencies": {
+    "cloudcv": "git://github.com/BloodAxe/CloudCVBackend.git",
     "express": "3.3.5",
     "jade": "*",
-    "request": "*",
+    "mongojs": "^0.14.2",
     "node-cache": "*",
-    "socket.io": "*",
-    "cloudcv": "git://github.com/BloodAxe/CloudCVBackend.git"
+    "request": "*",
+    "socket.io": "*"
   },
-  
-    "repository": {
-        "type": "git",
-        "url": "git://github.com/BloodAxe/CloudCV.git"
-    }
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/BloodAxe/CloudCV.git"
+  }
 }
