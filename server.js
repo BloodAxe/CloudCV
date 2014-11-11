@@ -30,10 +30,7 @@ app.get('/privacy', function(req, res) { res.render('privacy'); });
 app.get('/api/docs', function(req, res) { res.render('api-docs'); });
 
 // Demo endpoints:
-app.all('/examples/analysis',        examples.analysis);
-app.all('/examples/calibration',     examples.calibration);
-//app.all('/demo/recognition',       examples.recognition);
-
+app.all('/demo/analysis',        examples.analysis);
 
 
 //var urlRegex = '(https?:\\/\\/)?([\\w\\.]+)\\.([a-z]{2,6}\\.?)(\\/[\\w\\.]*)*';

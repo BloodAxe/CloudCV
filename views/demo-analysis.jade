@@ -33,13 +33,6 @@ block content
                     div.caption                            
                         button.btn.btn-primary(onclick="$('#file-selector').click();") Choose image 
 
-                        
-                            
-
-
-                    
-
-
         div.output(id="output")
         
             - if (typeof(result) !== 'undefined'){
@@ -51,64 +44,19 @@ block content
                 .panel-heading Source image
                 .panel-body
                     .row
-                        .col-md-6       
-                            img(src="#{result.common.sourceImage}")
-                        .col-md-6       
-                            - if (result.common.hasColor) {   
-                            img(src="#{result.color.histogramImage}")
-                            - }
-                            br
-                            br
+                        .col-md-2       
+                            img(src="#{result.sourceImage}")
+                        .col-md-10       
                             ul
-                                li Image frame size #{result.common.frameSize.width}:#{result.common.frameSize.height}
-                                li Image aspect ratio is #{result.common.aspectRatio.width}:#{result.common.aspectRatio.height}
-                                                         
-
-            div.panel.panel-default
-                .panel-heading Grayscale
-                .panel-body
-                    .row
-                        .col-md-6       
-                            img(src="#{result.common.grayscaleImage}")
-                        .col-md-6       
-                            img(src="#{result.grayscale.histogramImage}")
-                            br
-                            br
-                            ul
-                                li Contrast #{result.grayscale.rmsContrast}
-                                li Min brightness #{result.grayscale.intensity.min}
-                                li Max brightness #{result.grayscale.intensity.max}
-                                li Average brightness #{result.grayscale.intensity.average}
-
-            - if (result.common.hasColor) {
-
-            div.panel.panel-default
-                .panel-heading Analyze of colors
-                .panel-body
-                    .row
-                        .col-md-6       
-                            img(src="#{result.color.dominantColorsImage}")
-                        .col-md-6       
-                            ul
-                                li Total unique colors - #{result.color.uniqieColors}
-                                li Reduced colors - #{result.color.reducedColors}
-                                li Dominant colors - #{result.color.dominantColors.length}
-
-            - } 
-
-            div.panel.panel-default
-                .panel-heading Edges
-                .panel-body
-                    .row
-                        .col-md-6       
-                            img(src="#{result.edges.cannyImage}")
-                        .col-md-6       
-                            ul
-                                li Canny lower threshold #{result.edges.cannyLowerThreshold}
-                                li Canny upper threshold #{result.edges.cannyUpperThreshold}
-
-            -}
-
+                                li Image size #{result.result.frameSize.width}:#{result.result.frameSize.height}
+                                li Image aspect ratio is #{result.result.aspectRatio.width}:#{result.result.aspectRatio.height}
+                                li Unique colors #{result.result.uniqueColors}
+                                li Optimal number of colors #{result.result.reducedColors}
+                            div.row
+                                - foreach color in result.result.dominantColors {
+                                span.pull-left(style="width:32px; height:32px; bgcolor: #{color.html}")
+                                - }
+            - }
 
         h4 Tell us what do you think 
         include includes/disqus

@@ -6,7 +6,8 @@
     "start": "node app.js"
   },
   "dependencies": {
-    "cloudcv": "git://github.com/BloodAxe/CloudCVBackend.git",
+    "async": "^0.9.0",
+    "cloudcv-backend": "git://github.com/BloodAxe/CloudCVBackend.git",
     "express": "3.3.5",
     "jade": "*",
     "mongojs": "^0.14.2",

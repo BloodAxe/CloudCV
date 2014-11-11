@@ -4,7 +4,8 @@
 
 var fs   = require('fs');
 var util = require('util');
-var cv   = require('cloudcv');
+var cv   = require('cloudcv-backend');
+var async= require('async');
 
 function exampleImages()
 {
@@ -41,9 +42,11 @@ exampleImages.prototype.getImagePath = function(img)
     return this[img].source;
 }
 
+var imgs = new exampleImages();
+
 function processRequest(req, res, view, work) 
 {
-    var imgs = new exampleImages();
+    
     var img  = req.body.image;
 
     var renderDefaultPage = function() {
@@ -61,69 +64,48 @@ function processRequest(req, res, view, work)
         });  
     }
 
-    if (img && imgs.isInputImageValid(img))
-    {
-        var exampleImage = imgs[img];
-        
-        fs.readFile(exampleImage.source, function(err, data) {
-
-            if (err) 
-            {
-                renderDefaultPage();
-                return;
-            }
-
-            work(data, function(result) {
-                if (result && !error) {
-                    result.source = exampleImage.sourceURL;
-                    renderResultView(result);                          
-                }
-                else {
-                    renderDefaultPage();
-                }
-            });
-
-        });        
+    var imageToLoad;
+    if (img && imgs.isInputImageValid(img)) {
+        imageToLoad = imgs[img].source;
     }
-    else if (req.files && req.files.image)
-    {
-        var uploadedImg = req.files.image;
-        
-        fs.readFile(uploadedImg.path, function(err, data) {
-            
-            if (err) 
-            {
-                renderDefaultPage();
-                return;
-            }
+    else if (req.files && req.files.image) {
+        imageToLoad = req.files.image;
+    }
 
-            work(data, function(error, result) {
-                if (result) {
-                    result.source = '';
-                    renderResultView(result);      
-                }
-                else {
-                    renderDefaultPage();                    
-                }
-            });
-        });  
+    if (!imageToLoad) {
+        return renderDefaultPage();
     }
-    else
-    {
-        renderDefaultPage();      
-    }
+
+    console.log(imageToLoad);
+    async.waterfall([
+        function(callback){
+            fs.readFile(imageToLoad, callback);
+        },
+        function(imageData, callback) {
+            cv.loadImage(imageToLoad, function(error, imview) { callback(error, imageData, imview); });
+        },
+        function(imageData, imview, callback) {
+            imview.thumbnail(128, 128, function(error, thumbnail) { callback(error, imageData, imview, thumbnail); });
+        },   
+        function(imageData, imview, thumbnail, callback) {
+            thumbnail.asJpegDataUri(function(error, thumbUri) { callback(error, imageData, imview, thumbUri); });
+        },
+        function(imageData, imview, thumbnail, callback) {
+            work(imageData, function(error, workResult) { callback(error, { sourceImage:thumbnail, result:workResult }); });
+        }     
+        ], function (err, result) {
+        if (err) {
+            console.error(err);            
+            return renderDefaultPage();
+        }
+        else {
+            console.log(result);            
+            return renderResultView(result);
+        }
+    });
 }
-
-exports.calibration = function(req, res)
-{
-    res.render('demo-calibration');
-};
 
 exports.analysis = function(req, res)
 {
-    processRequest(req, res, 'demo-analysis', function(data, cb) {
-        cv.analyze(data, function(result) {
-            cb(result);
-        });
-    });
+    processRequest(req, res, 'demo-analysis', cv.analyzeImage);
 };
