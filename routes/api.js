@@ -4,15 +4,6 @@ var cv = require('cloudcv-backend');
 var NodeCache = require("node-cache");
 var myCache = new NodeCache();
 
-function dataURItoBuffer(dataURI) {
-    // convert base64 to raw binary data held in a string
-    var comp = dataURI.split(',');
-    var b64string = comp[1];
-    
-    var binData = new Buffer(b64string, 'base64').toString('binary');
-    return new Buffer(binData, 'binary');
-}
-
 var filters = {};
 
 filters.histogram = function (image, response, callback) {
@@ -25,12 +16,8 @@ filters.histogram = function (image, response, callback) {
                 response.end();
                 return;
             }
-
-            response.setHeader("Content-Type", "application/json");
-            response.write(result.histogram);
-            response.end();
             
-            callback(null, result);
+            callback(null, result.histogram);
         });
     }
     catch (e) {
@@ -44,7 +31,8 @@ filters.histogram = function (image, response, callback) {
 filters.dominantColors = function (image, response, callback) {
     
     try {
-        cv.analyzeImage(image, function (result) {
+        console.log(image);
+        cv.analyzeImage(image, function (error, result) {
             
             if (error) {
                 response.statusCode = 415; // Unsupported Media Type
@@ -52,13 +40,7 @@ filters.dominantColors = function (image, response, callback) {
                 return;
             }
 
-            result.asPngStream(function(err, data) {
-                response.setHeader("Content-Type", "image/png");
-                response.write(buffer);
-                response.end();
-
-                callback(null, buffer);
-            });                
+            callback(null, result.dominantColors);
         });
     }
     catch (e) {
@@ -70,6 +52,8 @@ filters.dominantColors = function (image, response, callback) {
 
 var handleApiRequest = function (filter, url, res) {
     
+    console.log("API request", filter, url);
+
     // Construct request data
     var requestSettings = {
         method: 'GET',
@@ -89,15 +73,19 @@ var handleApiRequest = function (filter, url, res) {
         myCache.get(key, function (err, value) {
             console.log(value);
             if (!err && value[key]) {
-                res.setHeader("Content-Type", "image/png");
+                res.setHeader("Content-Type", "application/json");
                 res.send(value[key]);
             }
             else {
                 request(requestSettings, function (error, response, body) {
                     if (!error && response.statusCode == 200) {
-                        handler(body, res, function (error, buffer) { 
+                        handler(body, res, function (error, cachedResponse) { 
                             if (!error)
-                                myCache.set(key, buffer); 
+                                myCache.set(key, cachedResponse); 
+
+                                res.setHeader("Content-Type", "application/json");
+                                res.write(JSON.stringify(cachedResponse));
+                                res.end();
                         });
                     }
                     else {

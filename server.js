@@ -34,14 +34,10 @@ app.all('/demo/analysis',        examples.analysis);
 
 
 //var urlRegex = '(https?:\\/\\/)?([\\w\\.]+)\\.([a-z]{2,6}\\.?)(\\/[\\w\\.]*)*';
-var urlRegex = '[\\w\\.]+\/[\/\\w\.\-]+';
+var urlRegex = '[\\w\\.]+\/[\/\\w\.\-\_]+';
 
-app.get('/api/:filter/http\://:url(' + urlRegex + ')', function(req, res) {
-    api.handleRequest(req.params.filter, 'http://' + req.params.url, res);
-});
-
-app.get('/api/:filter/https\://:url(' + urlRegex + ')', function(req, res) {
-    api.handleRequest(req.params.filter, 'https://' + req.params.url, res);
+app.get('/api/:filter/:url', function(req, res) {
+    api.handleRequest(req.params.filter, decodeURIComponent(req.params.url), res);
 });
 
 module.exports = app;
