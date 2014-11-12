@@ -69,7 +69,7 @@ function processRequest(req, res, view, work)
         imageToLoad = imgs[img].source;
     }
     else if (req.files && req.files.image) {
-        imageToLoad = req.files.image;
+        imageToLoad = req.files.image.path;
     }
 
     if (!imageToLoad) {
