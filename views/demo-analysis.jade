@@ -35,7 +35,7 @@ block content
 
         div.output(id="output")
         
-            - if (typeof(result) !== 'undefined'){
+            - if (typeof(result) !== 'undefined') {
 
             h2 Analyze results
                 a(href='#content')
@@ -52,10 +52,10 @@ block content
                                 li Image aspect ratio is #{result.result.aspectRatio.width}:#{result.result.aspectRatio.height}
                                 li Unique colors #{result.result.uniqueColors}
                                 li Optimal number of colors #{result.result.reducedColors}
+                                li Optimal number of colors #{result.result.dominantColors.length}
                             div.row
-                                - foreach color in result.result.dominantColors {
-                                span.pull-left(style="width:32px; height:32px; bgcolor: #{color.html}")
-                                - }
+                                each c in result.result.dominantColors
+                                    span.pull-left(style="width:32px; height:32px; background: #{c.html}")
             - }
 
         h4 Tell us what do you think 
