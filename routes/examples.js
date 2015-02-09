@@ -95,11 +95,11 @@ function processRequest(req, res, view, work)
         }     
         ], function (err, result) {
         if (err) {
-            console.error(err);            
+            console.error(err);
             return renderDefaultPage();
         }
         else {
-            console.log(result);            
+            console.log(result);
             return renderResultView(result);
         }
     });
