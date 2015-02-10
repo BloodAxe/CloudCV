@@ -3,16 +3,13 @@
   "version": "0.0.1",
   "private": false,
   "scripts": {
-    "start": "node app.js"
+    "start": "node server.js"
   },
   "dependencies": {
-    "async": "^0.9.0",
-    "jade": "*",
-    "body-parser": "^1.11.0",
-    "cookie-parser": "^1.3.3",
-    "errorhandler": "^1.3.3",
-    "express": "*",
-    "method-override": "^2.3.1"
+    "express": "^4.11.2",
+    "jade": "^1.9.2",
+    "pmx": "^0.2.34",
+    "winston": "^0.9.0"
   },
   "repository": {
     "type": "git",
