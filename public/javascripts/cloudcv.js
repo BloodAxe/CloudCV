@@ -1,62 +1,47 @@
-// Face global object that we will use to connect events
-var CV = {};
+/**
+ * @author Eugene Zatepyakin / http://inspirit.ru/
+ */
 
-function getImageDim(image)
-{
-    var result = {};
-    document.body.appendChild(image);
-    result['width'] = image.offsetWidth;
-    result['height'] = image.offsetHeight;
-    document.body.removeChild(image);
-    return result;
-}
+window.cloudcv = {
+    REVISION: '0.0.1'
+};
 
-function loadRemoteFile(file, imageReadyCallback)
-{
-    var image = new Image();
-    image.onload = function ()
-    {
-        $(CV).trigger("imageSelected", image);
-    }
-    image.src = file;
-}
+(function(global) {
+    "use strict";
 
-function loadImageFile(file, imageReadyCallback)
-{
-    console.log("loadImageFile(%s)", file);
-    
-    var reader = new FileReader();
-    reader.onload = function (e)
-    {
-        var image = new Image();
-        image.onload = function ()
-        {
-            imageReadyCallback(image);
+    var BASE_URL = 'http://api.cloudcv.io/v1/';
+
+    var analyze_t = (function () {
+        function analyze_t(baseUrl) {
+
+            this.dominantColors = function(image, callback) {
+                if (typeof image == 'string') {
+                    $.get(baseUrl + 'dominantColors/' + encodeURIComponent(image), function( response ) {
+                        callback(null, response);
+                    });
+                }
+                else {
+                    var data = new FormData();
+                    data['image'] = image;
+
+                    $.post(baseUrl + 'dominantColors/', data, function( response ) {
+                        callback(null, response);
+                    });
+                }
+            };
         }
-        image.src = e.target.result;
-    };
-    reader.readAsDataURL(file);
-}
+        return analyze_t;
+    })();
 
-function imageSelected(image)
-{
-    var drawingCanvas = document.getElementById("file-preview");
-    var context       = drawingCanvas.getContext('2d');
-    context.drawImage(image, 0, 0, drawingCanvas.width, drawingCanvas.height);
-
-    $(CV).trigger("imageSelected", image);
-}
-
-
-window.onload = function()
-{
-    document.getElementById("file-selector").addEventListener("change", function (e)
-    {
-        var files = this.files;
-        if (files.length)
-        {
-            loadImageFile(files[0], imageSelected);
+    var image_t = (function () {
+        function image_t(baseUrl) {
+            this.analyze = new analyze_t(baseUrl + 'analyze/');
         }
-    });
+        return image_t;
+    })();
 
-}
+
+    //
+    global.image = new image_t(BASE_URL + 'image/');
+
+})(window.cloudcv);

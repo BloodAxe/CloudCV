@@ -4,6 +4,31 @@ block variables
 extends layout
 
 block content
+    script.
+        function extractDominantColors(imageUrl) {
+            cloudcv.image.analyze.dominantColors(imageUrl, function(error, response) {
+                if (error) {
+                    $('#resultsPanel').hide(0);
+                    $('#processingErrorMessage').html(error.message);
+
+                    $('#processingError').show();
+                }
+                else {
+                    $('#processingError').hide(0);
+                    $('#sourceImage').attr('src', imageUrl);
+
+                    $('#dominantColors').empty();
+
+                    for (var i = 0; i < response.dominantColors.length; i++) {
+                        var c = response.dominantColors[i];
+                        $('#dominantColors').append('<span class="pull-left" style="width:32px; height:32px; background:'+c.html+'"></span>');
+                    }
+
+                    $('#resultsPanel').show();
+                } 
+            });
+        }
+
     div.container
         h1 Image analysis example
 
@@ -21,11 +46,7 @@ block content
             each demoImage in example.availableImages
                 div.col-sm-6.col-md-2
                     div.thumbnail
-                        img(src="#{demoImage.thumbnailURL}")
-                        div.caption
-                            form(method="post")                                
-                                button.btn.btn-default(type="submit") #{demoImage.key} 
-                                input(type="hidden",name="image",value="#{demoImage.key}")
+                        img(src="#{demoImage}",onclick="extractDominantColors('https://cloudcv.io' + '#{demoImage}')")
 
             div.col-sm-6.col-md-2
                 div.thumbnail
@@ -34,43 +55,37 @@ block content
                         button.btn.btn-primary(onclick="$('#file-selector').click();") Choose image 
 
         div.output(id="output")
-        
-            - if (typeof(result) !== 'undefined') {
+            div.panel.panel-default(id='resultsPanel')
+                h2 Analyze results
+                    a(href='#content')
 
-            h2 Analyze results
-                a(href='#content')
+                div.panel.panel-default
+                    .panel-heading Source image
+                    .panel-body
+                        .row
+                            .col-md-2       
+                                img(id='sourceImage')
+                            .col-md-10       
+                                div.row(id='dominantColors')
 
-            div.panel.panel-default
-                .panel-heading Source image
-                .panel-body
-                    .row
-                        .col-md-2       
-                            img(src="#{result.sourceImage}")
-                        .col-md-10       
-                            ul
-                                li Image size #{result.result.frameSize.width}:#{result.result.frameSize.height}
-                                li Image aspect ratio is #{result.result.aspectRatio.width}:#{result.result.aspectRatio.height}
-                                li Unique colors #{result.result.uniqueColors}
-                                li Optimal number of colors #{result.result.reducedColors}
-                                li Optimal number of colors #{result.result.dominantColors.length}
-                            div.row
-                                each c in result.result.dominantColors
-                                    span.pull-left(style="width:32px; height:32px; background: #{c.html}")
-            - }
+            div.panel.panel-default(id='processingError')
+                h2 Problem encountered
+                p.lead.
+                    There was a problem while processing your request. Here's description message that may contain a hint on what went wrong.
+                p(id='processingErrorMessage')
 
         h4 Tell us what do you think 
         include includes/disqus
 
 block scripts
-    script $(document).ready(function () { document.getElementById('file-selector').addEventListener('change', function(e) { console.log('file selected'); var f = $('#process-image-form'); console.log(f); f.submit(); } );  });
-
-    - if (typeof(result) !== 'undefined'){
-        script.
-            $(document).ready(function () { 
-                
-                    var l = $("#output").offset().top; 
-                    console.log(l); 
-                    $('html, body').animate({scrollTop: l}, 200); 
-                
-            });
-    - }
+    script
+        | $(document).ready(function () { 
+        |   $('#processingError').hide(0);
+        |   $('#resultsPanel').hide(0);
+        |   document.getElementById('file-selector').addEventListener('change', function(e) { 
+        |       console.log('file selected'); 
+        |       var f = $('#process-image-form'); 
+        |       console.log(f); 
+        |       f.submit(); 
+        |   });
+        | });
