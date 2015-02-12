@@ -29,6 +29,18 @@ block content
             });
         }
 
+        function extractDominantColorsFromFile(file) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#selected-image')
+                    .attr('src', e.target.result)
+                    .width(150).height(200);
+            };
+
+            reader.readAsDataURL(file);
+        }
+
     div.container
         h1 Image analysis example
 
@@ -50,7 +62,7 @@ block content
 
             div.col-sm-6.col-md-2
                 div.thumbnail
-                    img(data-src='holder.js/128x128/gray/text:Upload image')
+                    img(id='selected-image',data-src='holder.js/128x128/gray/text:Upload image')
                     div.caption                            
                         button.btn.btn-primary(onclick="$('#file-selector').click();") Choose image 
 
@@ -83,9 +95,7 @@ block scripts
         |   $('#processingError').hide(0);
         |   $('#resultsPanel').hide(0);
         |   document.getElementById('file-selector').addEventListener('change', function(e) { 
-        |       console.log('file selected'); 
-        |       var f = $('#process-image-form'); 
-        |       console.log(f); 
-        |       f.submit(); 
+        |       
+        |       extractDominantColorsFromFile($('#file-selector').val());
         |   });
         | });
