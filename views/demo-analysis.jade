@@ -5,40 +5,43 @@ extends layout
 
 block content
     script.
-        function extractDominantColors(imageUrl) {
-            cloudcv.image.analyze.dominantColors(imageUrl, function(error, response) {
-                if (error) {
-                    $('#resultsPanel').hide(0);
-                    $('#processingErrorMessage').html(error.message);
 
-                    $('#processingError').show();
+        function renderDominantColorsResponse(error, response, imageSrc) {
+            if (error) {
+                $('#resultsPanel').hide(0);
+                $('#processingErrorMessage').html(error.message);
+
+                $('#processingError').show();
+            }
+            else {
+                $('#processingError').hide(0);
+                $('#sourceImage').attr('src', imageSrc);
+
+                $('#dominantColors').empty();
+
+                for (var i = 0; i < response.dominantColors.length; i++) {
+                    var c = response.dominantColors[i];
+                    $('#dominantColors').append('<div class="pull-left" style="width:100%; height:64px; background:'+c.html+'"></span>');
                 }
-                else {
-                    $('#processingError').hide(0);
-                    $('#sourceImage').attr('src', imageUrl);
 
-                    $('#dominantColors').empty();
+                $('#response-raw').html(JSON.stringify(response, undefined, '\t'));
 
-                    for (var i = 0; i < response.dominantColors.length; i++) {
-                        var c = response.dominantColors[i];
-                        $('#dominantColors').append('<span class="pull-left" style="width:32px; height:32px; background:'+c.html+'"></span>');
-                    }
+                $('#resultsPanel').show();
 
-                    $('#resultsPanel').show();
-                } 
-            });
+            } 
         }
 
-        function extractDominantColorsFromFile(file) {
-            var reader = new FileReader();
+        function extractDominantColorsFromUrl(imageUrl) {
+            cloudcv.image.analyze.dominantColors(imageUrl, function(e, r) { renderDominantColorsResponse(e, r, imageUrl); });
+        }
 
-            reader.onload = function (e) {
-                $('#selected-image')
-                    .attr('src', e.target.result)
-                    .width(150).height(200);
-            };
+        function extractDominantColorsFromFile(image, file) {
 
-            reader.readAsDataURL(file);
+            //var s = image.src;
+            $('#selected-image').attr('src', URL.createObjectURL(file)).width(200).height(200);
+
+            var imageBlob = cloudcv.common.getImageDataAsBlob(image);
+            cloudcv.image.analyze.dominantColors(imageBlob,  function(e, r) { renderDominantColorsResponse(e, r, URL.createObjectURL(file)); });
         }
 
     div.container
@@ -58,7 +61,7 @@ block content
             each demoImage in example.availableImages
                 div.col-sm-6.col-md-2
                     div.thumbnail
-                        img(src="#{demoImage}",onclick="extractDominantColors('https://cloudcv.io' + '#{demoImage}')")
+                        img(src="#{demoImage}",onclick="extractDominantColorsFromUrl('https://cloudcv.io' + '#{demoImage}')")
 
             div.col-sm-6.col-md-2
                 div.thumbnail
@@ -66,36 +69,48 @@ block content
                     div.caption                            
                         button.btn.btn-primary(onclick="$('#file-selector').click();") Choose image 
 
-        div.output(id="output")
-            div.panel.panel-default(id='resultsPanel')
-                h2 Analyze results
-                    a(href='#content')
+        div.output(id="output",role='tabpanel')
+            ul.nav.nav-tabs(role='tablist')
+                li.active(role='presentation')
+                    a(href="#home",aria-controls="home",role="tab",data-toggle="tab") Response
+                li(role='presentation')
+                    a(href="#raw",aria-controls="raw",role="tab",data-toggle="tab") Raw
 
-                div.panel.panel-default
-                    .panel-heading Source image
-                    .panel-body
-                        .row
-                            .col-md-2       
-                                img(id='sourceImage')
-                            .col-md-10       
-                                div.row(id='dominantColors')
+            div.tab-content(id='resultsPanel')
 
-            div.panel.panel-default(id='processingError')
-                h2 Problem encountered
-                p.lead.
-                    There was a problem while processing your request. Here's description message that may contain a hint on what went wrong.
-                p(id='processingErrorMessage')
+                div.tab-pane.active(role="tabpanel",id="home")
+                    h2 Analyze results
+                        a(href='#content')
+
+                    div.panel.panel-default
+                        .panel-heading Source image
+                        .panel-body
+                            .row
+                                .col-md-8       
+                                    img(id='sourceImage',style='max-width:100%;max-height:512px')
+                                .col-md-4(id='dominantColors')     
+
+                    div.panel.panel-default(id='processingError')
+                        h2 Problem encountered
+                        p There was a problem while processing your request. Here's description message that may contain a hint on what went wrong.
+                        p.lead(id='processingErrorMessage')
+
+                div.tab-pane.active(role="tabpanel",id="raw")
+                    h2 Raw output
+                    pre(id='response-raw')
 
         h4 Tell us what do you think 
         include includes/disqus
 
 block scripts
-    script
-        | $(document).ready(function () { 
-        |   $('#processingError').hide(0);
-        |   $('#resultsPanel').hide(0);
-        |   document.getElementById('file-selector').addEventListener('change', function(e) { 
-        |       
-        |       extractDominantColorsFromFile($('#file-selector').val());
-        |   });
-        | });
+    script.
+        $(document).ready(function () { 
+            $('#processingError').hide(0);
+            $('#resultsPanel').hide(0);
+            cloudcv.common.bindHookOnFileInput('file-selector', extractDominantColorsFromFile);
+
+            $('#output a').click(function (e) {
+                e.preventDefault()
+                $(this).tab('show')
+            })
+        });
