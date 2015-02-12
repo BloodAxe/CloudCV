@@ -4,100 +4,12 @@ block content
   div.container
     h1 API Documentation
     
-    h2 Transport
-
-    p.lead Rest API allows you make a GET request to CloudCV to get result of image processing of arbitrary image specified by URL.
-
-    div.bs-callout.bs-callout-info
-        h4 Example
-        pre.
-            http://cloudcv.io/api/filterName/imageUrl
-        p
-            strong Important notice:
-            | Image URL must be encoded with 
-            a(href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent') encodeURIComponent
-            |. Otherwise you will get 404.
-
-    h2 Supported filters:
-    ul
-        li 
-            a(href="#histogram") Histogram
-        li 
-            a(href="#dominant-colors") Dominant colors
-
-    a(name="histogram")
-    h3 Histogram 
-
-    p This filter compute the image histogram for each of R, G and B channel. 
-    div.bs-callout.bs-callout-info
-        h4 Example
-        pre.
-            http://cloudcv.io/api/histogram/imageUrl
-        p
-            strong Important notice:
-            | Image URL must be encoded with 
-            a(href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent') encodeURIComponent
-            |. Otherwise you will get 404.
-
-    div.panel.panel-default
-        div.panel-heading
-            h4 Demonstration
-        div.panel-body
-            div.bs-example
-                form
-                    div.form-group
-                        label(for="histogram-url") Image URL
-                        input.form-control(type="url",id="histogram-url",placeholder="Paste image URL here")
-                    div.row
-                        div.col-md-3
-                            img.img-thumbnail(data-src="holder.js/256x256/text:Paste image first",id="histogram-source")
-                        div.col-md-9
-                            pre#histogram-result(style="min-height:256px; max-height:256px; overflow: auto")
-
-    a(name="dominant-colors")
-    h3 Dominant colors 
-    p This filter extracts N dominant colors from the given image. The number of dominant colors is automatically selected based on image content.
-    div.bs-callout.bs-callout-info
-        h4 Example
-        pre.
-            http://cloudcv.io/api/dominantColors/imageUrl
-        p
-            strong Important notice:
-            | Image URL must be encoded with 
-            a(href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent') encodeURIComponent
-            |. Otherwise you will get 404.
-
-    div.panel.panel-default
-        div.panel-heading
-            h3 Demonstration
-        div.panel-body
-            div.bs-example
-                form
-                    div.form-group
-                        label(for="dominantColors-url") Image URL
-                        input.form-control(type="url",id="dominantColors-url",placeholder="Paste image URL here")
-                    div.row
-                        div.col-md-3
-                            img.img-thumbnail(data-src="holder.js/256x256/text:Paste image first",id="dominantColors-source")
-                        div.col-md-9
-                            pre#dominantColors-result(style="min-height:256px; max-height:256px; overflow: auto")
-
-    include includes/disqus
-
-block scripts
-    script.
-        $(document).ready(function () {
-            $('#histogram-url').change(function() { 
-                var url = $('#histogram-url').val();
-                $('#histogram-source').attr('src', url); 
-                $('#histogram-result').load('/api/histogram/' + encodeURIComponent(url));
-            });
-
-            $('#dominantColors-url').change(function() { 
-                var url = $('#dominantColors-url').val();
-                $('#dominantColors-source').attr('src', url); 
-                $('#dominantColors-result').load('/api/dominantColors/' + encodeURIComponent(url));
-                 
-            });
-
-        });
+    p.lead
+        | API Documentation is temporary unavailable. 
+        | Due to very early stage of development, the main focus is on making API versatile, 
+        | robust and easy to use. Therefore it's about to change. Please refer to 
+        a(href="https://github.com/CloudCV/api.cloudcv.io") api.cloudcv.io 
+        | repository in order to get up to date API specifications.
+        | Visit website: 
+        a(href="https://github.com/CloudCV/api.cloudcv.io") api.cloudcv.io
+        | .
