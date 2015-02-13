@@ -23,7 +23,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/',         function(req, res) { res.render('index');    });
 app.get('/about',    function(req, res) { res.render('about');    });
 app.get('/privacy',  function(req, res) { res.render('privacy');  });
-app.get('/api/docs', function(req, res) { res.render('api-docs'); });
+app.get('/docs',     function(req, res) { res.render('api-docs'); });
 
 // Demo endpoints:
 app.all('/demo/analysis',        function(req, res) {

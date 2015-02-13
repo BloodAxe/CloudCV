@@ -9,7 +9,7 @@ window.cloudcv = {
 (function(global) {
     "use strict";
 
-    var BASE_URL = 'http://api.cloudcv.io/v1/';
+    var BASE_URL = 'https://cloudcv.io/api/v1/';
 
     var analyze_t = (function () {
         function analyze_t(baseUrl) {
