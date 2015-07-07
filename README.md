@@ -1,4 +1,8 @@
-CloudCV
+DEPRECATED
 =======
+This project has been deprecated and should not be used. 
+**Please update your bookmarks and use [CloudCV-Bootstrap](https://github.com/CloudCV/cloudcv-bootstrap) started template.**
 
-An example of using OpenCV library in server environment using Node.js
+[CloudCV-Bootstrap](https://github.com/CloudCV/cloudcv-bootstrap)
+
+More information can be found here: [Introducing CloudCV Bootstrap](http://computer-vision-talks.com/articles/introducing-cloudcv-bootstrap/).
